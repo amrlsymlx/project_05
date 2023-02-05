@@ -14,21 +14,30 @@ def enter_data():
 
             title = title_combobox.get()
             gender = gender_combobox.get()
-            age = age_spinbox.get()
-            nationality = nationality_combobox.get()
-            courseNum = numcourses_spinbox.get()
-            semNum = numsemesters_spinbox.get()
-            regStatus = reg_status_var.get()
+            age = int(age_spinbox.get())
 
-            print("-------------Student Details-------------\n")
-            print("Name : "+title+" "+firstName+" "+lastName)
-            print("Gender : "+gender)
-            print("Age : "+age)
-            print("Nationality : "+nationality)
-            print("Registration Status : "+regStatus)
-            print("Number of Courses : "+courseNum)
-            print("Semester : "+semNum+"\n")
-            print("-----------------------------------------")
+            if age >= 18 and age <= 40:
+
+                nationality = nationality_combobox.get()
+                courseNum = int(numcourses_spinbox.get())
+                
+                if courseNum >= 1 and courseNum <= 60:
+                    semNum = numsemesters_combobox.get()
+                    regStatus = reg_status_var.get()
+
+                    print("-------------Student Details-------------\n")
+                    print("Name : "+title+" "+firstName+" "+lastName)
+                    print("Gender : "+gender)
+                    print("Age : "+str(age))
+                    print("Nationality : "+nationality)
+                    print("Registration Status : "+regStatus)
+                    print("Number of Courses : "+str(courseNum))
+                    print("Semester : "+semNum+"\n")
+                    print("-----------------------------------------")
+                else:
+                    tkinter.messagebox.showwarning(title="Hold on!", message="You must have atleast 1 course (Max:60)")
+            else:
+                tkinter.messagebox.showwarning(title="Hold on!", message="Your age must be between 18 to 40 years old.")
         else:
            tkinter.messagebox.showwarning(title="Hold on!", message="First name and last name are required.") 
     else:
@@ -72,7 +81,7 @@ title_label.grid(row=0, column=2)
 title_combobox.grid(row=1, column=2)
 
 age_label = tkinter.Label(user_info_frame, text="Age")
-age_spinbox = tkinter.Spinbox(user_info_frame, from_=18, to=110)
+age_spinbox = tkinter.Spinbox(user_info_frame, from_=18, to=40)
 age_label.grid(row=2, column=0)
 age_spinbox.grid(row=3, column=0)
 
@@ -102,14 +111,14 @@ registered_label.grid(row=0, column=0)
 registered_check.grid(row=1, column=0)
 
 numcourses_label = tkinter.Label(courses_frame, text="# of Completed Courses")
-numcourses_spinbox = tkinter.Spinbox(courses_frame, from_=0, to='infinity')
+numcourses_spinbox = tkinter.Spinbox(courses_frame, from_=0, to=60)
 numcourses_label.grid(row=0, column=1)
 numcourses_spinbox.grid(row=1, column=1)
 
 numsemesters_label = tkinter.Label(courses_frame, text="# of Semesters")
-numsemesters_spinbox = tkinter.Spinbox(courses_frame, from_=0, to="12")
+numsemesters_combobox = ttk.Combobox(courses_frame, values=[1,2,3,4,5,6,7,8,9,10,11,12])
 numsemesters_label.grid(row=0, column=2)
-numsemesters_spinbox.grid(row=1, column=2)
+numsemesters_combobox.grid(row=1, column=2)
 
 # --------------------------------------------------------------------------------------------------------
 #  Frame - Accept T&C , Parent = main_frame
