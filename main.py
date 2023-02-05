@@ -1,5 +1,38 @@
 import tkinter
 from tkinter import ttk
+from tkinter import messagebox
+
+def enter_data():
+
+    accepted=accept_var.get()
+
+    if accepted=="Accepted":
+        firstName = first_name_entry.get()
+        lastName = last_name_entry.get()
+
+        if firstName and lastName:
+
+            title = title_combobox.get()
+            gender = gender_combobox.get()
+            age = age_spinbox.get()
+            nationality = nationality_combobox.get()
+            courseNum = numcourses_spinbox.get()
+            semNum = numsemesters_spinbox.get()
+            regStatus = reg_status_var.get()
+
+            print("-------------Student Details-------------\n")
+            print("Name : "+title+" "+firstName+" "+lastName)
+            print("Gender : "+gender)
+            print("Age : "+age)
+            print("Nationality : "+nationality)
+            print("Registration Status : "+regStatus)
+            print("Number of Courses : "+courseNum)
+            print("Semester : "+semNum+"\n")
+            print("-----------------------------------------")
+        else:
+           tkinter.messagebox.showwarning(title="Hold on!", message="First name and last name are required.") 
+    else:
+        tkinter.messagebox.showwarning(title="Hold on!", message="Please accept Terms & Conditions to proceed!")
 
 
 # --------------------------------------------------------------------------------------------------------
@@ -49,9 +82,9 @@ gender_label.grid(row=2, column=1)
 gender_combobox.grid(row=3, column=1)
 
 nationality_label = tkinter.Label(user_info_frame, text="Nationality")
-natinality_combobox = ttk.Combobox(user_info_frame, values=["Local", "Foreign"])
+nationality_combobox = ttk.Combobox(user_info_frame, values=["Local", "Foreign"])
 nationality_label.grid(row=2, column=2)
-natinality_combobox.grid(row=3, column=2)
+nationality_combobox.grid(row=3, column=2)
 
 # --------------------------------------------------------------------------------------------------------
 #  Frame - Courses Info , Parent = main_frame
@@ -62,7 +95,9 @@ courses_frame.grid(row=1, column=0, sticky="news")
 # Widgets , Parent = courses_frame
 
 registered_label = tkinter.Label(courses_frame, text="Registration Status")
-registered_check = tkinter.Checkbutton(courses_frame, text="Currently Registered")
+reg_status_var = tkinter.StringVar(value="Not Registered")
+registered_check = tkinter.Checkbutton(courses_frame, text="Currently Registered", 
+                                        variable=reg_status_var, onvalue="Registered", offvalue="Not Registered")
 registered_label.grid(row=0, column=0)
 registered_check.grid(row=1, column=0)
 
@@ -83,14 +118,15 @@ terms_frame = tkinter.LabelFrame(main_frame, text="Terms & Conditions")
 terms_frame.grid(row=2, column=0, sticky="news")
 
 # Widgets , Parent = terms_frame
-
-terms_check = tkinter.Checkbutton(terms_frame, text="I accept the terms and conditions")
+accept_var=tkinter.StringVar(value="Not Accepted")
+terms_check = tkinter.Checkbutton(terms_frame, text="I accept the terms and conditions",
+                                    variable=accept_var, onvalue="Accepted", offvalue="Not Accepted")
 terms_check.grid(row=0,column=0)
 
 # --------------------------------------------------------------------------------------------------------
 # Button, Parent = main_frame
 
-button = tkinter.Button(main_frame, text="Submit")
+button = tkinter.Button(main_frame, text="Submit", command=enter_data)
 button.grid(row=3, column=0, sticky="news")
 
 # --------------------------------------------------------------------------------------------------------
