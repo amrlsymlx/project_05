@@ -20,7 +20,7 @@ def enter_data():
 
                 nationality = nationality_combobox.get()
                 courseNum = int(numcourses_spinbox.get())
-                
+
                 if courseNum >= 1 and courseNum <= 60:
                     semNum = numsemesters_combobox.get()
                     regStatus = reg_status_var.get()
