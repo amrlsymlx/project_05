@@ -65,7 +65,7 @@ window.title("Data Entry Form")
 # Data file path. Please enter your own file path.
 filepath = "D:\python_data\data_entry_form\data.xlsx"
 
-#Create if not exist
+#Create data file if not exist
 if not os.path.exists(filepath):
     workbook = openpyxl.Workbook()
     sheet = workbook.active
@@ -73,7 +73,7 @@ if not os.path.exists(filepath):
     sheet.append(heading)
     workbook.save(filepath)
 
-#Append if exist
+#Append data file if exist
 workbook = openpyxl.load_workbook(filepath)
 sheet = workbook.active
 
