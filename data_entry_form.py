@@ -62,7 +62,7 @@ window.title("Data Entry Form")
 # --------------------------------------------------------------------------------------------------------
 # Create or open excel file
 
-# Data file path. Please enter your own file path.
+#Define data file path. Please enter your own file path.
 filepath = "D:\python_data\data_entry_form\data.xlsx"
 
 #Create data file if not exist
