@@ -182,7 +182,5 @@ for widget in courses_frame.winfo_children():
 # --------------------------------------------------------------------------------------------------------
 
 
-
-
 #02 run infinite number of loop so long as the app being executed
 window.mainloop()
