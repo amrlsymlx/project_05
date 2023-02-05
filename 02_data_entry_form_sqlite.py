@@ -26,39 +26,44 @@ def enter_data():
                 nationality = nationality_combobox.get()
                 courseNum = int(numcourses_spinbox.get())
 
-                if courseNum >= 1 and courseNum <= 60:
+                if courseNum >= 1 and courseNum <= 70:
                     semNum = int(numsemesters_combobox.get())
-                    regStatus = reg_status_var.get()
 
-                    # Insert Data
-                    data_insert_query = '''INSERT INTO Student_Data (title, firstname, lastname, gender, age,
-                    nationality, registration_status, num_courses, num_semesters) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    '''
-                    data_insert_tuple = (title, firstName, lastName, gender, age, nationality, regStatus, courseNum, semNum)
+                    if semNum >= 1 and semNum <= 12:
+                            
+                        regStatus = reg_status_var.get()
 
-                    # cursor - mid-way between sqlite connection and the actual database
-                    #execute all the queries and decide where everything is being inserted at what point in the database
-                    cursor = conn.cursor()
-                    cursor.execute(data_insert_query, data_insert_tuple)
+                        # Insert Data
+                        data_insert_query = '''INSERT INTO Student_Data (title, firstname, lastname, gender, age,
+                        nationality, registration_status, num_courses, num_semesters) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        '''
+                        data_insert_tuple = (title, firstName, lastName, gender, age, nationality, regStatus, courseNum, semNum)
 
-                    conn.commit()
-                    conn.close()
+                        # cursor - mid-way between sqlite connection and the actual database
+                        #execute all the queries and decide where everything is being inserted at what point in the database
+                        cursor = conn.cursor()
+                        cursor.execute(data_insert_query, data_insert_tuple)
 
-                    print("-------------Student Details-------------\n")
-                    print("Name : "+title+" "+firstName+" "+lastName)
-                    print("Gender : "+gender)
-                    print("Age : "+str(age))
-                    print("Nationality : "+nationality)
-                    print("Registration Status : "+regStatus)
-                    print("Number of Courses : "+str(courseNum))
-                    print("Semester : "+str(semNum)+"\n")
-                    print("--------------Data Save Success!------------")
+                        conn.commit()
+                        conn.close()
 
-                    tkinter.messagebox.showinfo(title="Success!", message="Data successfully recorded!")
+                        print("-------------Student Details-------------\n")
+                        print("Name : "+title+" "+firstName+" "+lastName)
+                        print("Gender : "+gender)
+                        print("Age : "+str(age))
+                        print("Nationality : "+nationality)
+                        print("Registration Status : "+regStatus)
+                        print("Number of Courses : "+str(courseNum))
+                        print("Semester : "+str(semNum)+"\n")
+                        print("--------------Data Save Success!------------")
 
-                    clear_form()
+                        tkinter.messagebox.showinfo(title="Success!", message="Data successfully recorded!")
+
+                        clear_form()
+                    else:
+                        tkinter.messagebox.showwarning(title="Hold on!", message="Invalid Semester! (Min: 1 , Max: 12)")
                 else:
-                    tkinter.messagebox.showwarning(title="Hold on!", message="You must have atleast 1 course (Max:60)")
+                    tkinter.messagebox.showwarning(title="Hold on!", message="Invalid # of courses! (Min: 1, Max: 70)")
             else:
                 tkinter.messagebox.showwarning(title="Hold on!", message="Your age must be between 18 to 40 years old.")
         else:
