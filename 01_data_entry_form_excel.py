@@ -70,8 +70,8 @@ def clear_form():
     nationality_combobox.delete(0, 99)
     numcourses_spinbox.delete(0, 99)
     numsemesters_combobox.delete(0, 99)
-    # reg_status_var.delete()
-    # accept_var.delete()
+    registered_check.deselect()
+    terms_check.deselect()
     print("\t\tForm Cleared")
 
 
