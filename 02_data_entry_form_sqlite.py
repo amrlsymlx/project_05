@@ -1,12 +1,11 @@
 import tkinter
 from tkinter import ttk
 from tkinter import messagebox
-import os
-#openpyxl needed to be installed into your machine. Enter {pip install openpyxl} into your terminal/command prompt 
-import openpyxl
+
+import sqlite3
 
 # --------------------------------------------------------------------------------------------------------
-# enter_data function
+#08 enter_data function (last part)
 
 def enter_data():
 
@@ -28,12 +27,22 @@ def enter_data():
                 courseNum = int(numcourses_spinbox.get())
 
                 if courseNum >= 1 and courseNum <= 60:
-                    semNum = numsemesters_combobox.get()
+                    semNum = int(numsemesters_combobox.get())
                     regStatus = reg_status_var.get()
 
-                    #Append data in excel
-                    sheet.append([firstName, lastName, title, gender, age, nationality, courseNum, semNum, regStatus])
-                    workbook.save(filepath)
+                    # Insert Data
+                    data_insert_query = '''INSERT INTO Student_Data (title, firstname, lastname, gender, age,
+                    nationality, registration_status, num_courses, num_semesters) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    '''
+                    data_insert_tuple = (title, firstName, lastName, gender, age, nationality, regStatus, courseNum, semNum)
+
+                    # cursor - mid-way between sqlite connection and the actual database
+                    #execute all the queries and decide where everything is being inserted at what point in the database
+                    cursor = conn.cursor()
+                    cursor.execute(data_insert_query, data_insert_tuple)
+
+                    conn.commit()
+                    conn.close()
 
                     print("-------------Student Details-------------\n")
                     print("Name : "+title+" "+firstName+" "+lastName)
@@ -42,8 +51,9 @@ def enter_data():
                     print("Nationality : "+nationality)
                     print("Registration Status : "+regStatus)
                     print("Number of Courses : "+str(courseNum))
-                    print("Semester : "+semNum+"\n")
-                    print("--------------Data Save Sucess!------------")
+                    print("Semester : "+str(semNum)+"\n")
+                    print("--------------Data Save Success!------------")
+                    tkinter.messagebox.showinfo(title="Success!", message="Data successfully recorded!")
                 else:
                     tkinter.messagebox.showwarning(title="Hold on!", message="You must have atleast 1 course (Max:60)")
             else:
@@ -59,26 +69,19 @@ def enter_data():
 
 window = tkinter.Tk() 
 window.title("Data Entry Form")
-# --------------------------------------------------------------------------------------------------------
-# Create or open excel file
-
-#Define data file path. Please enter your own file path.
-filepath = "D:\python_data\data_entry_form\data.xlsx"
-
-#Create data file if not exist
-if not os.path.exists(filepath):
-    workbook = openpyxl.Workbook()
-    sheet = workbook.active
-    heading = ["First Name", "Last Name", "Title", "Gender", "Age", "Nationality", "# Courses", "# Semesters", "Registration Status"]
-    sheet.append(heading)
-    workbook.save(filepath)
-
-#Append data file if exist
-workbook = openpyxl.load_workbook(filepath)
-sheet = workbook.active
 
 # --------------------------------------------------------------------------------------------------------
-#03 Main Frame , no label, Parent = window
+# Create SQL table
+
+conn = sqlite3.connect('data.db')
+table_create_query ='''CREATE TABLE IF NOT EXISTS Student_Data
+(title TEXT, firstname TEXT, lastname TEXT, gender TEXT, age INT,
+nationality TEXT, registration_status TEXT, num_courses INT, num_semesters INT)
+'''
+conn.execute(table_create_query)
+
+# --------------------------------------------------------------------------------------------------------
+#02 Main Frame , no label, Parent = window
 
 main_frame = tkinter.Frame(window)
 # layout manager
@@ -86,7 +89,7 @@ main_frame = tkinter.Frame(window)
 main_frame.pack()
 
 # --------------------------------------------------------------------------------------------------------
-#  Frame - User Info , Parent = main_frame
+#03  Frame - User Info , Parent = main_frame
 
 user_info_frame = tkinter.LabelFrame(main_frame, text="User Information")
 user_info_frame.grid(row=0, column=0)
@@ -123,7 +126,7 @@ nationality_label.grid(row=2, column=2)
 nationality_combobox.grid(row=3, column=2)
 
 # --------------------------------------------------------------------------------------------------------
-#  Frame - Courses Info , Parent = main_frame
+#04  Frame - Courses Info , Parent = main_frame
 
 courses_frame = tkinter.LabelFrame(main_frame, text="Courses Information")
 courses_frame.grid(row=1, column=0, sticky="news")
@@ -148,7 +151,7 @@ numsemesters_label.grid(row=0, column=2)
 numsemesters_combobox.grid(row=1, column=2)
 
 # --------------------------------------------------------------------------------------------------------
-#  Frame - Accept T&C , Parent = main_frame
+#05  Frame - Accept T&C , Parent = main_frame
 
 terms_frame = tkinter.LabelFrame(main_frame, text="Terms & Conditions")
 terms_frame.grid(row=2, column=0, sticky="news")
@@ -160,13 +163,13 @@ terms_check = tkinter.Checkbutton(terms_frame, text="I accept the terms and cond
 terms_check.grid(row=0,column=0)
 
 # --------------------------------------------------------------------------------------------------------
-# Button, Parent = main_frame
+#06 Button, Parent = main_frame
 
 button = tkinter.Button(main_frame, text="Submit", command=enter_data)
 button.grid(row=3, column=0, sticky="news")
 
 # --------------------------------------------------------------------------------------------------------
-
+# 07
 # Padding between child of main_frame
 for widget in main_frame.winfo_children():
     widget.grid_configure(pady=5, padx=10)
@@ -182,5 +185,5 @@ for widget in courses_frame.winfo_children():
 # --------------------------------------------------------------------------------------------------------
 
 
-#02 run infinite number of loop so long as the app being executed
+# run infinite number of loop so long as the app being executed
 window.mainloop()
