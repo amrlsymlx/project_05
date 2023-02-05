@@ -44,7 +44,10 @@ def enter_data():
                     print("Number of Courses : "+str(courseNum))
                     print("Semester : "+str(semNum)+"\n")
                     print("--------------Data Save Success!------------")
+
                     tkinter.messagebox.showinfo(title="Success!", message="Data successfully recorded!")
+
+                    clear_form()
                 else:
                     tkinter.messagebox.showwarning(title="Hold on!", message="You must have atleast 1 course (Max:60)")
             else:
@@ -53,6 +56,23 @@ def enter_data():
            tkinter.messagebox.showwarning(title="Hold on!", message="First name and last name are required.") 
     else:
         tkinter.messagebox.showwarning(title="Hold on!", message="Please accept Terms & Conditions to proceed!")
+
+# --------------------------------------------------------------------------------------------------------
+#09 clear_form function (last part)
+
+def clear_form():
+    
+    first_name_entry.delete(0, 99)
+    last_name_entry.delete(0, 99)
+    title_combobox.delete(0, 99)
+    gender_combobox.delete(0, 99)
+    age_spinbox.delete(0, 99)
+    nationality_combobox.delete(0, 99)
+    numcourses_spinbox.delete(0, 99)
+    numsemesters_combobox.delete(0, 99)
+    # reg_status_var.delete()
+    # accept_var.delete()
+    print("\t\tForm Cleared")
 
 
 # --------------------------------------------------------------------------------------------------------
