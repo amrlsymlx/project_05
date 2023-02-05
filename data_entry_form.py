@@ -1,6 +1,12 @@
 import tkinter
 from tkinter import ttk
 from tkinter import messagebox
+import os
+#openpyxl needed to be installed into your machine. Enter {pip install openpyxl} into your terminal/command prompt 
+import openpyxl
+
+# --------------------------------------------------------------------------------------------------------
+# enter_data function
 
 def enter_data():
 
@@ -25,6 +31,10 @@ def enter_data():
                     semNum = numsemesters_combobox.get()
                     regStatus = reg_status_var.get()
 
+                    #Append data in excel
+                    sheet.append([firstName, lastName, title, gender, age, nationality, courseNum, semNum, regStatus])
+                    workbook.save(filepath)
+
                     print("-------------Student Details-------------\n")
                     print("Name : "+title+" "+firstName+" "+lastName)
                     print("Gender : "+gender)
@@ -33,7 +43,7 @@ def enter_data():
                     print("Registration Status : "+regStatus)
                     print("Number of Courses : "+str(courseNum))
                     print("Semester : "+semNum+"\n")
-                    print("-----------------------------------------")
+                    print("--------------Data Save Sucess!------------")
                 else:
                     tkinter.messagebox.showwarning(title="Hold on!", message="You must have atleast 1 course (Max:60)")
             else:
@@ -49,6 +59,23 @@ def enter_data():
 
 window = tkinter.Tk() 
 window.title("Data Entry Form")
+# --------------------------------------------------------------------------------------------------------
+# Create or open excel file
+
+# Please enter your own file path
+filepath = "D:\python_data\data_entry_form\data.xlsx"
+
+#Create if not exist
+if not os.path.exists(filepath):
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    heading = ["First Name", "Last Name", "Title", "Gender", "Age", "Nationality", "# Courses", "# Semesters", "Registration Status"]
+    sheet.append(heading)
+    workbook.save(filepath)
+
+#Append if exist
+workbook = openpyxl.load_workbook(filepath)
+sheet = workbook.active
 
 # --------------------------------------------------------------------------------------------------------
 #03 Main Frame , no label, Parent = window
@@ -111,7 +138,7 @@ registered_label.grid(row=0, column=0)
 registered_check.grid(row=1, column=0)
 
 numcourses_label = tkinter.Label(courses_frame, text="# of Completed Courses")
-numcourses_spinbox = tkinter.Spinbox(courses_frame, from_=0, to=60)
+numcourses_spinbox = tkinter.Spinbox(courses_frame, from_=1, to=60)
 numcourses_label.grid(row=0, column=1)
 numcourses_spinbox.grid(row=1, column=1)
 
