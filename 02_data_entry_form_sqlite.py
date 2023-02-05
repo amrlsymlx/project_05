@@ -17,20 +17,21 @@ def enter_data():
 
         if firstName and lastName:
 
-            title = title_combobox.get()
-            gender = gender_combobox.get()
             age = int(age_spinbox.get())
 
             if age >= 18 and age <= 40:
 
-                nationality = nationality_combobox.get()
                 courseNum = int(numcourses_spinbox.get())
 
                 if courseNum >= 1 and courseNum <= 70:
+                    
                     semNum = int(numsemesters_combobox.get())
 
                     if semNum >= 1 and semNum <= 12:
                             
+                        title = title_combobox.get()
+                        gender = gender_combobox.get()
+                        nationality = nationality_combobox.get()
                         regStatus = reg_status_var.get()
 
                         # Insert Data
