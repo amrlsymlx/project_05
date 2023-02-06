@@ -8,6 +8,7 @@ import openpyxl
 # --------------------------------------------------------------------------------------------------------
 #08 enter_data function (last part)
 
+
 def enter_data():
 
     accepted=accept_var.get()
@@ -63,8 +64,10 @@ def enter_data():
     else:
         tkinter.messagebox.showwarning(title="Hold on!", message="Please accept Terms & Conditions to proceed!")
 
+
 # --------------------------------------------------------------------------------------------------------
 #09 clear_form function (last part)
+
 
 def clear_form():
     
@@ -80,13 +83,18 @@ def clear_form():
     terms_check.deselect()
     print("\t\tForm Cleared")
 
+
 # --------------------------------------------------------------------------------------------------------
 # 01 root window
 
+
 window = tkinter.Tk() 
 window.title("Data Entry Form")
+
+
 # --------------------------------------------------------------------------------------------------------
 # Create or open excel file
+
 
 #Define data file path. Please enter your own file path. (Copy file path in Windows Explorer and add \filename.xlsx)
 # filepath = "D:\python_data\data_entry_form\data.xlsx"
@@ -104,16 +112,20 @@ if not os.path.exists(filepath):
 workbook = openpyxl.load_workbook(filepath)
 sheet = workbook.active
 
+
 # --------------------------------------------------------------------------------------------------------
 #02 Main Frame , no label, Parent = window
+
 
 main_frame = tkinter.Frame(window)
 # layout manager
 # other layout .place() .grid()
 main_frame.pack()
 
+
 # --------------------------------------------------------------------------------------------------------
 #03  Frame - User Info , Parent = main_frame
+
 
 user_info_frame = tkinter.LabelFrame(main_frame, text="User Information")
 user_info_frame.grid(row=0, column=0)
@@ -149,8 +161,10 @@ nationality_combobox = ttk.Combobox(user_info_frame, values=["Local", "Foreign"]
 nationality_label.grid(row=2, column=2)
 nationality_combobox.grid(row=3, column=2)
 
+
 # --------------------------------------------------------------------------------------------------------
 #04  Frame - Courses Info , Parent = main_frame
+
 
 courses_frame = tkinter.LabelFrame(main_frame, text="Courses Information")
 courses_frame.grid(row=1, column=0, sticky="news")
@@ -174,8 +188,10 @@ numsemesters_combobox = ttk.Combobox(courses_frame, values=[1,2,3,4,5,6,7,8,9,10
 numsemesters_label.grid(row=0, column=2)
 numsemesters_combobox.grid(row=1, column=2)
 
+
 # --------------------------------------------------------------------------------------------------------
 #05  Frame - Accept T&C , Parent = main_frame
+
 
 terms_frame = tkinter.LabelFrame(main_frame, text="Terms & Conditions")
 terms_frame.grid(row=2, column=0, sticky="news")
@@ -192,8 +208,11 @@ terms_check.grid(row=0,column=0)
 button = tkinter.Button(main_frame, text="Submit", command=enter_data)
 button.grid(row=3, column=0, sticky="news")
 
+
 # --------------------------------------------------------------------------------------------------------
 # 07
+
+
 # Padding between child of main_frame
 for widget in main_frame.winfo_children():
     widget.grid_configure(pady=5, padx=10)
@@ -205,6 +224,7 @@ for widget in user_info_frame.winfo_children():
 # Padding between child of courses_frame
 for widget in courses_frame.winfo_children():
     widget.grid_configure(padx=10, pady=5)
+
 
 # --------------------------------------------------------------------------------------------------------
 
