@@ -165,12 +165,12 @@ registered_check = tkinter.Checkbutton(courses_frame, text="Currently Registered
 registered_label.grid(row=0, column=0)
 registered_check.grid(row=1, column=0)
 
-numcourses_label = tkinter.Label(courses_frame, text="# of Completed Courses")
+numcourses_label = tkinter.Label(courses_frame, text="No. of Completed Courses\n(Max: 70) ")
 numcourses_spinbox = tkinter.Spinbox(courses_frame, from_=1, to=60)
 numcourses_label.grid(row=0, column=1)
 numcourses_spinbox.grid(row=1, column=1)
 
-numsemesters_label = tkinter.Label(courses_frame, text="# of Semesters")
+numsemesters_label = tkinter.Label(courses_frame, text="Semester\n(Max: 12)")
 numsemesters_combobox = ttk.Combobox(courses_frame, values=[1,2,3,4,5,6,7,8,9,10,11,12])
 numsemesters_label.grid(row=0, column=2)
 numsemesters_combobox.grid(row=1, column=2)
