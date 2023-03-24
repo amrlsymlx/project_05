@@ -1,0 +1,9 @@
+pyinstaller --onefile --noconsole 01_data_entry_form_excel.py
+
+pyinstaller --onefile 01_data_entry_form_excel.py
+
+
+
+pyinstaller --onefile --noconsole 02_data_entry_form_sqlite.py
+
+pyinstaller --onefile 02_data_entry_form_sqlite.py
