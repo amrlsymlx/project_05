@@ -98,7 +98,7 @@ window.title("Data Entry Form")
 
 #Define data file path. Please enter your own file path. (Copy file path in Windows Explorer and add \filename.xlsx)
 # filepath = "D:\python_data\data_entry_form\data.xlsx"
-filepath = r"C:\Users\amiru\Desktop\Code\project_05\data.xlsx"
+filepath = r"D:\Code\project_05\data.xlsx"
 
 #Create excel data file if not exist
 if not os.path.exists(filepath):
